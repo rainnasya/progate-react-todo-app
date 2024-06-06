@@ -3,16 +3,6 @@ import Todos from './components/Todos'
 
 
 function App() {
-  const toggleCompleted = (todoId) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === todoId) {
-        todo.completed = !todo.completed
-      }
-      return todo
-    })
-    setTodos(updatedTodos)
-  }
-
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -33,10 +23,33 @@ function App() {
 
   console.log(todos)
 
+  const toggleCompleted = (todoId) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === todoId) {
+        todo.completed = !todo.completed
+      }
+      return todo
+    })
+    setTodos(updatedTodos)
+  }
+
+  const deleteTodo = (todoId) => {
+    const updatedTodos = todos.filter((todo) => {
+      if(todo.id !== todoId){
+        return todo
+      }
+    })
+    setTodos(updatedTodos)
+  }
+
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>My Todo List</h1>
-      <Todos todos={todos} toggleCompleted={toggleCompleted} />
+      <Todos 
+        todos={todos} 
+        toggleCompleted={toggleCompleted} 
+        deleteTodo={deleteTodo} 
+      />
     </div>
   )
 }
